@@ -7,6 +7,7 @@ import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContract
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -44,6 +45,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.ImageLoader
 import coil.compose.AsyncImage
@@ -81,7 +83,6 @@ fun AppContent(viewModel: HomeViewModel = androidx.lifecycle.viewmodel.compose.v
         }
     }
 }
-
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -156,22 +157,22 @@ fun HomeScreen(
                     ) {
                         Icon(imageVector = Icons.Default.Send, contentDescription = "Send")
                     }
-
-                    AnimatedVisibility(visible = imageUris.size > 0) {
-                        Card(modifier = Modifier.fillMaxWidth()) {
-                            LazyRow(modifier = Modifier.padding(8.dp)) {
-                                items(imageUris) { imageUri ->
-                                    Column {
-                                        AsyncImage(
-                                            model = imageUri,
-                                            contentDescription = "",
-                                            modifier = Modifier
-                                                .padding(4.dp)
-                                                .requiredSize(50.dp)
-                                        )
-                                        TextButton(onClick = { imageUris.remove(imageUri) }) {
-                                            Text(text = "Remove")
-                                        }
+                }
+                AnimatedVisibility(visible = imageUris.size > 0) {
+                    Card(modifier = Modifier.fillMaxWidth()) {
+                        LazyRow(modifier = Modifier.padding(8.dp)) {
+                            items(imageUris) { imageUri ->
+                                Column(verticalArrangement = Arrangement.Center,
+                                    horizontalAlignment = Alignment.CenterHorizontally) {
+                                    AsyncImage(
+                                        model = imageUri,
+                                        contentDescription = "",
+                                        modifier = Modifier
+                                            .padding(20.dp)
+                                            .requiredSize(50.dp)
+                                    )
+                                    TextButton(onClick = { imageUris.remove(imageUri) }) {
+                                        Text(text = "Remove")
                                     }
                                 }
                             }
